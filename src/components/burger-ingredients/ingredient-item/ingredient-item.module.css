@@ -1,0 +1,32 @@
+.ingredientItem {
+    max-width: 272px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 32px;
+    position: relative;
+    cursor: pointer;
+}
+
+.ingredientItem:nth-child(odd) {
+    margin-right: 24px;
+}
+
+.img {
+    width: 250px;
+    height: 120px;
+    background-color: rgb(118, 150, 150);
+    margin: 0 auto;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    height: 48px;
+    width: 100%;
+    text-align: center;
+}

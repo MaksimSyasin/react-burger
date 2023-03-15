@@ -1,0 +1,53 @@
+.main {
+    margin: 100px 16px 0 40px;
+    max-width: 47%;
+}
+
+.ingredientsListSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.ingredientsListUl {
+    display: flex;
+    flex-direction: column;
+    max-height: 464px;
+    overflow-y: scroll;
+}
+
+.ingredientsListUl::-webkit-scrollbar {
+    background: #2F2F37;
+    width: 8px;      
+}
+
+.ingredientsListUl::-webkit-scrollbar-track {
+    background: #2F2F37;     
+}
+
+.ingredientsListUl::-webkit-scrollbar-thumb {
+    background: #8585AD;     
+}
+
+.ingredientsListUl li {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 8px 16px 16px;
+}
+
+.order_btn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.price {
+    display: flex;
+    align-items: center
+}
+
+.price p {
+    margin-right: 10px;
+}
