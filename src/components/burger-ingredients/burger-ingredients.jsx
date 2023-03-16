@@ -40,7 +40,7 @@ function BurgerIngredients({ingredients}) {
                 </p>
                 <div className={`${styles.categoryBlock} mt-6 mb-10 pl-4`}>
                     {ingredients && 
-                        ingredients.map((item, index) => {
+                        ingredients.map((item) => {
                             if (item.type === 'bun') {
                                 return (
                                     <IngredientItem item={item} key={item._id} onIngrediantClick={setIngredientInModal}/>
@@ -55,7 +55,7 @@ function BurgerIngredients({ingredients}) {
                 </p>
                 <div className={`${styles.categoryBlock} mt-6 mb-10 pl-4`}>
                     {ingredients && 
-                        ingredients.map((item, index) => {
+                        ingredients.map((item) => {
                             if (item.type === 'sauce') {
                                 return (
                                     <IngredientItem item={item} key={item._id} onIngrediantClick={setIngredientInModal}/>
@@ -70,7 +70,7 @@ function BurgerIngredients({ingredients}) {
                 </p>
                 <div className={`${styles.categoryBlock} mt-6 mb-10 pl-4`}>
                     {ingredients && 
-                        ingredients.map((item, index) => {
+                        ingredients.map((item) => {
                             if (item.type === 'main') {
                                 return (
                                     <IngredientItem item={item} key={item._id} onIngrediantClick={setIngredientInModal}/>

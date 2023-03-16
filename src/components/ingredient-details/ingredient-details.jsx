@@ -23,26 +23,26 @@ function IngredientDetails({data}) {
                 </p>
             </div>
             <div className={styles.detailsItem}>
-                <p className="text text_type_main-default text_color_inactive mt-2">
+                <p className="text text_type_main-default text_color_inactive">
                     Белки, г
                 </p>
-                <p className="text text_type_digits-default text_color_inactive">
+                <p className="text text_type_digits-default text_color_inactive mt-2">
                     {data.proteins}
                 </p>
             </div>
             <div className={styles.detailsItem}>
-                <p className="text text_type_main-default text_color_inactive mt-2">
+                <p className="text text_type_main-default text_color_inactive">
                     Жиры, г
                 </p>
-                <p className="text text_type_digits-default text_color_inactive">
+                <p className="text text_type_digits-default text_color_inactive mt-2">
                     {data.fat}
                 </p>
             </div>
             <div className={styles.detailsItem}>
-                <p className="text text_type_main-default text_color_inactive mt-2">
+                <p className="text text_type_main-default text_color_inactive">
                     Углеводы, г
                 </p>
-                <p className="text text_type_digits-default text_color_inactive">
+                <p className="text text_type_digits-default text_color_inactive mt-2">
                     {data.carbohydrates}
                 </p>
             </div>
