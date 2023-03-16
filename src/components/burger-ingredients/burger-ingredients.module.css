@@ -1,0 +1,36 @@
+.main {
+    margin: 40px 0px 0 16px;
+    max-width: 47%;
+}
+
+.tabs {
+    display: flex;
+}
+
+.ingredientWindow {
+    max-height: 650px;    
+    overflow-y : scroll;
+}
+
+.ingredientWindow::-webkit-scrollbar {
+    background: #2F2F37;
+    width: 8px;      
+}
+
+.ingredientWindow::-webkit-scrollbar-track {
+    background: #2F2F37;     
+}
+
+.ingredientWindow::-webkit-scrollbar-thumb {
+    background: #8585AD;     
+}
+
+.categoryBlock {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.categoryBlock > div:nth-last-of-type(-n+2) {
+    margin-bottom: 0;
+}
+
