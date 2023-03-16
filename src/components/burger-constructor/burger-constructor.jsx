@@ -32,10 +32,10 @@ function BurgerConstructor({ingredients}) {
                 />
                 <ul className={styles.ingredientsListUl}>
                     {ingredients &&
-                        ingredients.map((item, index) => {
+                        ingredients.map((item) => {
                             if (item.type === 'main' || item.type === 'sauce') {
                                 return (
-                                    <li key={index}>
+                                    <li key={item._id}>
                                         <DragIcon type="primary" />
                                         <ConstructorElement
                                             text={item.name}

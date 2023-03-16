@@ -22,14 +22,14 @@ function BurgerIngredients({ingredients}) {
             <p className="text text_type_main-large">
                 Соберите бургер
             </p>
-            <div style={{ display: 'flex' }} className='mt-5'>
-                <Tab value="one" active={current === 'Булки'} onClick={setCurrent}>
+            <div className={`${styles.tabs} mt-5`}>
+                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                     Булки
                 </Tab>
-                <Tab value="two" active={current === 'Соусы'} onClick={setCurrent}>
+                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
                     Соусы
                 </Tab>
-                <Tab value="three" active={current === 'Начинки'} onClick={setCurrent}>
+                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
                     Начинки
                 </Tab>
             </div>
@@ -43,7 +43,7 @@ function BurgerIngredients({ingredients}) {
                         ingredients.map((item, index) => {
                             if (item.type === 'bun') {
                                 return (
-                                    <IngredientItem item={item} key={index} onIngrediantClick={setIngredientInModal}/>
+                                    <IngredientItem item={item} key={item._id} onIngrediantClick={setIngredientInModal}/>
                                 )
                             }
                         })
@@ -58,7 +58,7 @@ function BurgerIngredients({ingredients}) {
                         ingredients.map((item, index) => {
                             if (item.type === 'sauce') {
                                 return (
-                                    <IngredientItem item={item} key={index} onIngrediantClick={setIngredientInModal}/>
+                                    <IngredientItem item={item} key={item._id} onIngrediantClick={setIngredientInModal}/>
                                 )
                             }
                         })
@@ -73,7 +73,7 @@ function BurgerIngredients({ingredients}) {
                         ingredients.map((item, index) => {
                             if (item.type === 'main') {
                                 return (
-                                    <IngredientItem item={item} key={index} onIngrediantClick={setIngredientInModal}/>
+                                    <IngredientItem item={item} key={item._id} onIngrediantClick={setIngredientInModal}/>
                                 )
                             }
                         })

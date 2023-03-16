@@ -3,7 +3,6 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import '@ya.praktikum/react-developer-burger-ui-components';
-import './App.css';
 
 const URL_BD = 'https://norma.nomoreparties.space/api/ingredients'
 
@@ -13,18 +12,23 @@ function App() {
 
   useEffect (() => {
     fetch(URL_BD)
-    .then(response => response.json())
-    .then(data => setIngredients(data.data))
-    .catch(() => alert('Произошла ошибка'))
+        .then(res => {
+          if (res.ok) {
+              return res.json();
+          }
+          return Promise.reject(`Ошибка ${res.status}`);
+      })
+      .then(data => setIngredients(data.data))
+      .catch(error => alert(error.message))
   },[])
 
   return (
     <>
       <AppHeader />
-      <div className='main_container container_flex'>
+      <main className='main_container container_flex'>
         <BurgerIngredients ingredients={ingredients}/>
         <BurgerConstructor ingredients={ingredients}/>
-      </div>
+      </main>
  
     </>
 
