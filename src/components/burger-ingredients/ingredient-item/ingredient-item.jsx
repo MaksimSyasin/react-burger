@@ -26,7 +26,6 @@ function IngredientItem({ item, onIngrediantClick, ingredientsCounter }) {
             <Counter count={ingredientsCounter[item._id]} size="default"/>
         }
 
-        
         <div className={`mr-4 ml-4`}>
             <img src={item.image} alt={item.name}/>
         </div>
@@ -45,7 +44,8 @@ function IngredientItem({ item, onIngrediantClick, ingredientsCounter }) {
 
 IngredientItem.propTypes = {
     item: ingredientPropType.isRequired,
-    onIngrediantClick: PropTypes.func.isRequired
+    onIngrediantClick: PropTypes.func.isRequired,
+    ingredientsCounter: PropTypes.object
 };
 
 export default IngredientItem;

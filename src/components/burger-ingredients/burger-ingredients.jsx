@@ -7,42 +7,48 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientPropType from '../../utils/prop-types'
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT_IN_MODAL, getIngredients, RESET_INGREDIENT_IN_MODAL } from '../../services/actions/burger-constructor';
+import {getIngredients} from '../../services/actions/ingredients';
+import { ADD_INGREDIENT_IN_MODAL } from '../../services/actions/modal';
+import { RESET_INGREDIENT_IN_MODAL } from '../../services/actions/modal';
 
 
 function BurgerIngredients() {
 
   const [current, setCurrent] = React.useState('one')
-  const [ingredientInModal, setIngredientInModal] = useState()
-  const {ingredients, ingredientsFailed} = useSelector(state => state.ingredients);
 
+  const {ingredients, ingredientsFailed} = useSelector(state => state.ingredients);
+  const {ingredientsInConstructor, bun} = useSelector(state => state.ingredients)
+  const {ingredientModalActive} = useSelector(state => state.modal)
+  
   const dispatch = useDispatch();
 
   const closeIngredientModal = () => {
-    setIngredientInModal(null)
+
     dispatch({type: RESET_INGREDIENT_IN_MODAL})
   }
 
   const handleClickModal = (item) => {
-    setIngredientInModal(item)
+
     dispatch({type: ADD_INGREDIENT_IN_MODAL, item: item})
   }
 
-
-    
   useEffect(()=> {
       dispatch(getIngredients())
   }, [dispatch])
 
-  const {ingredientsInConstructor, bun} = useSelector(state => state.ingredients)
+
   const ingredientsCounter = useMemo(() => {
     const counters = {}
-    ingredientsInConstructor.forEach((ingredient) => {
-        if (!counters[ingredient._id]) {
-            counters[ingredient._id] = 0;
-        }
-        counters[ingredient._id]++
-    })
+
+    if (ingredientsInConstructor) {
+        ingredientsInConstructor.forEach((ingredient) => {
+            if (!counters[ingredient._id]) {
+                counters[ingredient._id] = 0;
+            }
+            counters[ingredient._id]++
+        })
+    }
+
     if (bun) counters[bun._id] = 2
     return counters
   }, [ingredientsInConstructor, bun])
@@ -74,7 +80,7 @@ function BurgerIngredients() {
                         Булки
                     </p>
                     <div className={`${styles.categoryBlock} mt-6 mb-10 pl-4`}>
-                        {ingredients && 
+                        {
                             ingredients.map((item) => {
                                 if (item.type === 'bun') {
                                     return (
@@ -94,7 +100,7 @@ function BurgerIngredients() {
                         Соусы
                     </p>
                     <div className={`${styles.categoryBlock} mt-6 mb-10 pl-4`}>
-                        {ingredients && 
+                        {
                             ingredients.map((item) => {
                                 if (item.type === 'sauce') {
                                     return (
@@ -114,7 +120,7 @@ function BurgerIngredients() {
                         Начинки
                     </p>
                     <div className={`${styles.categoryBlock} mt-6 mb-10 pl-4`}>
-                        {ingredients && 
+                        {
                             ingredients.map((item) => {
                                 if (item.type === 'main') {
                                     return (
@@ -135,9 +141,9 @@ function BurgerIngredients() {
 
 
         </div>
-        {ingredientInModal &&
+        {ingredientModalActive &&
             <Modal onClose={closeIngredientModal} title='Детали ингредиента'>
-                <IngredientDetails data={ingredientInModal}/>
+                <IngredientDetails data={ingredientModalActive}/>
             </Modal>
         }
         
