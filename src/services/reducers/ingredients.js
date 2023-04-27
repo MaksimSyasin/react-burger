@@ -17,7 +17,7 @@ const initialState = {
     ingredientsRequest: false,
     ingredientsFailed: false,
 
-    ingredientsInConstructor: null,
+    ingredientsInConstructor: [],
 }
 
 export const ingredientReducer = (state = initialState, action) => {
@@ -64,8 +64,8 @@ export const ingredientReducer = (state = initialState, action) => {
         case RESET_INGREDIENTS_IN_CONSTRUCTOR: {
             return{
                 ...state,
-                bun: false,
-                ingredientsInConstructor: false
+                bun: null,
+                ingredientsInConstructor: []
             }
         }
 

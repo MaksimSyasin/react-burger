@@ -3,7 +3,7 @@ import { ADD_INGREDIENT_IN_MODAL, RESET_INGREDIENT_IN_MODAL } from "../actions/m
 
 
 const initialState = {
-    ingredientModalActive: null,
+    ingredientDetail: null,
 }
 
 export const modalReducer = (state = initialState, action) => {
@@ -11,14 +11,14 @@ export const modalReducer = (state = initialState, action) => {
         case ADD_INGREDIENT_IN_MODAL: {
             return {
                 ...state,
-                ingredientModalActive: action.item
+                ingredientDetail: action.item
             }
         }
 
         case RESET_INGREDIENT_IN_MODAL: {
             return {
                 ...state,
-                ingredientModalActive: {}
+                ingredientDetail: null
             }
         }
         

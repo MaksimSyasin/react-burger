@@ -18,17 +18,15 @@ function BurgerIngredients() {
 
   const {ingredients, ingredientsFailed} = useSelector(state => state.ingredients);
   const {ingredientsInConstructor, bun} = useSelector(state => state.ingredients)
-  const {ingredientModalActive} = useSelector(state => state.modal)
+  const {ingredientDetail} = useSelector(state => state.modal)
   
   const dispatch = useDispatch();
 
   const closeIngredientModal = () => {
-
     dispatch({type: RESET_INGREDIENT_IN_MODAL})
   }
 
   const handleClickModal = (item) => {
-
     dispatch({type: ADD_INGREDIENT_IN_MODAL, item: item})
   }
 
@@ -141,9 +139,9 @@ function BurgerIngredients() {
 
 
         </div>
-        {ingredientModalActive &&
+        {ingredientDetail &&
             <Modal onClose={closeIngredientModal} title='Детали ингредиента'>
-                <IngredientDetails data={ingredientModalActive}/>
+                <IngredientDetails data={ingredientDetail}/>
             </Modal>
         }
         

@@ -9,7 +9,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { REMOVE_INGREDINT_IN_CONSTRUCTOR, RESET_INGREDIENTS_IN_CONSTRUCTOR, MOVE_INGREDIENT_IN_CONSTRUCTOR, ADD_INGREDIENT_IN_CONSTRUCTOR } from '../../services/actions/ingredients';
-import { ADD_ORDER } from '../../services/actions/order';
+import { ADD_ORDER, RESET_ORDER, SET_ORDER } from '../../services/actions/order';
 import CustomConstructorElement from './custom-constructor-element/custom-constructor-element';
 
 
@@ -26,6 +26,7 @@ function BurgerConstructor() {
 
     const closeOrderModal = () => {
         setOrderModal(null)
+        dispatch({type: RESET_ORDER})
     }
 
     const handleDrop = (itemId) => {
@@ -109,7 +110,7 @@ function BurgerConstructor() {
           })
           .then((data) => {
             order.uniqID = data.order.number; 
-            dispatch({ type: ADD_ORDER, order: order });
+            dispatch({ type: SET_ORDER, order: order });
             dispatch({ type: RESET_INGREDIENTS_IN_CONSTRUCTOR });
             setorderInfo(order);
             setOrderModal(true);
@@ -146,7 +147,6 @@ function BurgerConstructor() {
                 }
                 <ul className={styles.ingredientsListUl} >
                     {
-                        ingredientsInConstructor && 
                         ingredientsInConstructor.map((item, index) => (
                             <li key={crypto.randomUUID()} >
                                 <DragIcon type="primary" />
