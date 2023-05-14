@@ -8,6 +8,8 @@ import { compose, createStore ,applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers/index.js';
 import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 
 
 
@@ -25,9 +27,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <>
-    <Provider store={store}>
+    <Provider store={store} >
       <React.StrictMode>
-        <App />
+        <BrowserRouter>
+          <CookiesProvider>
+            <App />
+          </CookiesProvider>
+        </BrowserRouter>
       </React.StrictMode>
     </Provider>
   </>

@@ -1,38 +1,33 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import IngredientItem from './ingredient-item/ingredient-item';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal';
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredientPropType from '../../utils/prop-types'
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import {getIngredients} from '../../services/actions/ingredients';
 import { ADD_INGREDIENT_IN_MODAL } from '../../services/actions/modal';
-import { RESET_INGREDIENT_IN_MODAL } from '../../services/actions/modal';
+import { useNavigate } from 'react-router';
+
 
 
 function BurgerIngredients() {
 
   const [current, setCurrent] = React.useState('one')
 
+
+  const navigate = useNavigate();
+
   const {ingredients, ingredientsFailed} = useSelector(state => state.ingredients);
   const {ingredientsInConstructor, bun} = useSelector(state => state.ingredients)
-  const {ingredientDetail} = useSelector(state => state.modal)
+
   
   const dispatch = useDispatch();
 
-  const closeIngredientModal = () => {
-    dispatch({type: RESET_INGREDIENT_IN_MODAL})
-  }
 
   const handleClickModal = (item) => {
     dispatch({type: ADD_INGREDIENT_IN_MODAL, item: item})
+    navigate(`/ingredients/${item._id}`)
   }
 
-  useEffect(()=> {
-      dispatch(getIngredients())
-  }, [dispatch])
+
 
 
   const ingredientsCounter = useMemo(() => {
@@ -139,11 +134,7 @@ function BurgerIngredients() {
 
 
         </div>
-        {ingredientDetail &&
-            <Modal onClose={closeIngredientModal} title='Детали ингредиента'>
-                <IngredientDetails data={ingredientDetail}/>
-            </Modal>
-        }
+ 
         
     </>
   );

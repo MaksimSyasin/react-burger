@@ -11,13 +11,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { REMOVE_INGREDINT_IN_CONSTRUCTOR, RESET_INGREDIENTS_IN_CONSTRUCTOR, MOVE_INGREDIENT_IN_CONSTRUCTOR, ADD_INGREDIENT_IN_CONSTRUCTOR } from '../../services/actions/ingredients';
 import { ADD_ORDER, RESET_ORDER, SET_ORDER } from '../../services/actions/order';
 import CustomConstructorElement from './custom-constructor-element/custom-constructor-element';
+import { useCookies } from 'react-cookie';
+import { Navigate, useNavigate } from 'react-router';
 
 
 function BurgerConstructor() {
 
     const [orderModal, setOrderModal] = useState()
     const [orderInfo, setorderInfo] = useState(null);
+    const navigate = useNavigate();
 
+    const isAuth = useSelector(store => store.authReducer.isUserAuth);
+    const [cookies, setCookie, removeCookie] = useCookies(['stellarBurger']);
 
     const ingredientsInConstructor = useSelector(state => state.ingredients.ingredientsInConstructor);
     const bun = useSelector(state => state.ingredients.bun);
@@ -82,43 +87,47 @@ function BurgerConstructor() {
     }
 
     const createOrder = () => {
-        const ingredientsIds = [
-            bun._id, 
-            ...ingredientsInConstructor.map((ingredient) => ingredient._id), 
-            bun._id, 
-        ];
-
-        const order = {
-          bun,
-          ingredientsInConstructor,
-          price: calcPrice(),
-          uniqID: Math.floor(Math.random() * 999999) + 1,
-        };
-      
-        fetch('https://norma.nomoreparties.space/api/orders', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ ingredients: ingredientsIds}),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('Failed to submit order');
-            }
-            return response.json();
-          })
-          .then((data) => {
-            order.uniqID = data.order.number; 
-            dispatch({ type: SET_ORDER, order: order });
-            dispatch({ type: RESET_INGREDIENTS_IN_CONSTRUCTOR });
-            setorderInfo(order);
-            setOrderModal(true);
-          })
-          .catch((err) => {
-            console.error(err);
-            alert('Ошибка при создании заказа, пожалуйста попробуйте позже');
-          });
+        if (isAuth) {
+            const ingredientsIds = [
+                bun._id, 
+                ...ingredientsInConstructor.map((ingredient) => ingredient._id), 
+                bun._id, 
+            ];
+    
+            const order = {
+              bun,
+              ingredientsInConstructor,
+              price: calcPrice(),
+              uniqID: Math.floor(Math.random() * 999999) + 1,
+            };
+          
+            fetch('https://norma.nomoreparties.space/api/orders', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                authorization: cookies.accessToken
+              },
+              body: JSON.stringify({ ingredients: ingredientsIds}),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error('Failed to submit order');
+                }
+                return response.json();
+              })
+              .then((data) => {
+                order.uniqID = data.order.number; 
+                dispatch({ type: SET_ORDER, order: order });
+                dispatch({ type: RESET_INGREDIENTS_IN_CONSTRUCTOR });
+                setorderInfo(order);
+                setOrderModal(true);
+              })
+              .catch((err) => {
+                alert('Ошибка при создании заказа, пожалуйста попробуйте позже');
+              });
+        } else {
+            navigate('/login')
+        }
       };
 
     const deleteIngredient = (index) => {
@@ -182,7 +191,7 @@ function BurgerConstructor() {
                         onClick={createOrder}
                         disabled={bun ? false : true}
                     >
-                        Нажми на меня
+                        Оформить заказ
                     </Button>
                 </div>
                 
