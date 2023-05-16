@@ -1,0 +1,115 @@
+.profile {
+    display: flex;
+    margin-top: 120px;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    margin-right: 60px;
+}
+
+.navigation a {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+.navigation a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.link {
+    color: #8585AD;
+}
+
+.active {
+    color: #F2F2F3;
+}
+
+.input {
+    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input label {
+    position: absolute;
+    top: 4px;
+}
+
+
+input input{
+    margin: 0;
+}
+
+.edit__buttons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.save {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 16px 40px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+    border-radius: 64px;
+    border: none;
+    box-sizing: border-box;
+    width: max-content;
+    margin: 24px 0 80px;
+    justify-self: center;
+    transition: box-shadow 0.5s linear;
+
+
+}
+
+
+.save:hover {
+    cursor: pointer;
+    box-shadow: 0 1px 4px 2px #8585ad;
+    transition: box-shadow 0.5s linear;
+}
+
+.cancel {
+    font-style: normal;
+    visibility: visible;
+    opacity: 1;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 16px 20px;
+    box-sizing: border-box;
+    line-height: 24px;
+    text-align: center;
+    color: #4C4CFF;
+    text-decoration: none;
+    border: none;
+    margin: 24px 0 80px;
+    background-color: transparent;
+    transition: visibility .5s linear, opacity .5s linear;
+
+
+}
+
+.cancel:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.hidden {
+    visibility: hidden;
+    z-index: -2;
+    opacity: 0;
+    transition: visibility .5s linear, opacity .5s linear;
+}
