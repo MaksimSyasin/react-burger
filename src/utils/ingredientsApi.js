@@ -6,18 +6,17 @@ const _checkResponse = (res) => {
 };
 
 export const resetPassword = (email) => {
-    return fetch(`${stellarUrl}/password-reset`, {
+    return fetchWithRefresh(`${stellarUrl}/password-reset`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ "email": email }),
-    })
-        .then(_checkResponse)
+    });
 }
 
 export const changePassword = (password, token) => {
-    return fetch(`${stellarUrl}/password-reset/reset`, {
+    return fetchWithRefresh(`${stellarUrl}/password-reset/reset`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -26,13 +25,11 @@ export const changePassword = (password, token) => {
             "password": password,
             "token": token
         }),
-    })
-        .then(_checkResponse)
+    });
 }
 
 export const registerUser = (email, password, userName) => {
-    
-    return fetch(`https://norma.nomoreparties.space/api/auth/register`, {
+    return fetchWithRefresh(`https://norma.nomoreparties.space/api/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -42,11 +39,11 @@ export const registerUser = (email, password, userName) => {
             password: password,
             name: userName
         }),
-    }).then(_checkResponse)
+    });
 }
 
 export const login = (email, password) => {
-    return fetch(`${stellarUrl}/auth/login`, {
+    return fetchWithRefresh(`${stellarUrl}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -55,17 +52,17 @@ export const login = (email, password) => {
             "email": email,
             "password": password,
         }),
-    }).then(_checkResponse)
+    });
 }
 
 export const getUser = (token) => {
-    return fetch(`${stellarUrl}/auth/user`, {
+    return fetchWithRefresh(`${stellarUrl}/auth/user`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
             authorization: token
         },
-    }).then(_checkResponse)
+    });
 }
 
 export const refreshToken = (access, refresh) => {
@@ -82,15 +79,17 @@ export const refreshToken = (access, refresh) => {
 }
 
 export const updateUserApi = (token, updateInfo) => {
-    return fetch(`${stellarUrl}/auth/user`, {
+    const options = {
         method: 'PATCH',
         headers: {
-         'Content-Type': 'application/json;charset=utf-8',
-         authorization: token
+            'Content-Type': 'application/json;charset=utf-8',
+            authorization: token
         },
         body: JSON.stringify(updateInfo)
-    }).then(_checkResponse)
-}
+    };
+    
+    return fetchWithRefresh(`${stellarUrl}/auth/user`, options);
+};
 
 export const logout = (refresh) => {
     return fetch(`${stellarUrl}/auth/logout`, {
@@ -103,3 +102,20 @@ export const logout = (refresh) => {
         })
     }).then(_checkResponse)
 }
+
+export const fetchWithRefresh = (url, options) => {
+    return fetch(url, options).then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            if (response.status === 401) {
+                return refreshToken().then(newToken => {
+                    options.headers.authorization = newToken;
+                    return fetch(url, options);
+                });
+            } else {
+                throw new Error(`Request failed with status ${response.status}`);
+            }
+        }
+    }).then(_checkResponse);
+};
